@@ -11,7 +11,7 @@ Android 6.0+（也就Now on Tap有这种需求吧）
 
 ##### 应用截图
 
-![Screenshot](http:\\smartjinyu.com\img\2016-07-31\SaveNoTPic.png)
+![Screenshot](http://smartjinyu.com/img/2016-07-31/SaveNoTPic.png)
 
 ##### 开源代码
 https://github.com/smartjinyu/SaveNoTPic
@@ -19,3 +19,9 @@ https://github.com/smartjinyu/SaveNoTPic
 
 ##### 感谢
 Google material-design-icons、NoNonsense-FilePicker
+
+
+##### 应用下载
+[Github]
+
+[Github]:https://github.com/smartjinyu/SaveNoTPic/releases/download/v1.0/com.smartjinyu.SaveNoTPic_1.0.apk
