@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/class1">
+        <Preference
+            android:title="@string/directory"
+            android:summary="0"
+            android:key="pref_saveDir"/>
+        <SwitchPreference
+            android:title="@string/share"
+            android:key="pref_share"
+            android:defaultValue="true"
+            android:summaryOn="@string/sumOn"
+            android:summaryOff="@string/sumOff"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/class2">
+        <Preference
+            android:title="@string/help">
+            <intent android:action="android.intent.action.VIEW"
+            android:data="http://smartjinyu.com/2016/07/30/SaveNoTPic.html" />
+        </Preference>
+        <Preference
+            android:title="@string/version"
+            android:key="pref_version"/>
+        <Preference
+            android:title="@string/open"
+            android:summary="@string/openSum">
+            <intent android:action="android.intent.action.VIEW"
+                android:data="@string/openSum" />
+        </Preference>
+        <Preference
+            android:title="@string/feedback"
+            android:summary="@string/feedbackSum"
+            android:key="pref_feedback"/>
+    </PreferenceCategory>
+</PreferenceScreen>

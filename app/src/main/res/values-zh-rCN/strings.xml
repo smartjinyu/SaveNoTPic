@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">保存Now on Tap截图</string>
+    <string name="class1">设置</string>
+    <string name="class2">关于</string>
+    <string name="directory">截图保存目录</string>
+    <string name="feedback">发送反馈</string>
+    <string name="feedbackSum">如果您有建议或意见，请联系我</string>
+    <string name="help">帮助</string>
+    <string name="needPer">我们需要存储空间权限来保存截图</string>
+    <string name="open">开源项目</string>
+    <string name="sdcardFail">错误，请手动指定目录。</string>
+    <string name="share">保存后分享</string>
+    <string name="shareSucceed">截图已成功保存！</string>
+    <string name="shareTitle">保存截图</string>
+    <string name="sumOff">关闭</string>
+    <string name="sumOn">开启</string>
+    <string name="version">版本</string>
+
+
+</resources>
