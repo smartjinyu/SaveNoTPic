@@ -11,6 +11,14 @@
             android:defaultValue="true"
             android:summaryOn="@string/sumOn"
             android:summaryOff="@string/sumOff"/>
+      <!--  <SwitchPreference
+            android:title="@string/deleteLater"
+            android:summary="@string/deleteLaterSum"
+            android:key="pref_deleteLater"
+            android:defaultValue="false"
+            android:dependency="pref_share"
+            android:summaryOn="@string/sumOn"
+            android:summaryOff="@string/sumOff"/>-->
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/class2">
         <Preference

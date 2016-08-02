@@ -6,6 +6,8 @@
     <string name="share">Share Screenshot After Saving</string>
     <string name="sumOn">On</string>
     <string name="sumOff">Off</string>
+    <string name="deleteLater">Delete after sharing</string>
+    <string name="deleteLaterSum">Delete the saved screenshot after sharing</string>
     <string name="class2">About</string>
     <string name="help">Help</string>
     <string name="version">Version</string>
@@ -18,6 +20,7 @@
     <string name="needPer">We need storage permission to save screenshot to your sdcard.</string>
     <string name="shareTitle">SaveNoTPic</string>
     <string name="shareSucceed">Screenshot saved Successfully!</string>
+    <string name="deleteSucceed">The Screenshot saved has deleted!</string>
     <string name="shareFail001" translatable="false">Error. File not found. Please report this bug, thanks.</string>
     <string name="shareFail002" translatable="false">Error. IOException(1). Please report this bug, thanks.</string>
     <string name="shareFail003" translatable="false">Error. IOException(2). Please report this bug, thanks.</string>

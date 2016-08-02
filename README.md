@@ -13,6 +13,12 @@ Android 6.0+（也就Now on Tap有这种需求吧）
 
 ![Screenshot](http://smartjinyu.com/img/2016-07-31/SaveNoTPic.png)
 
+
+##### 更新日志
+2016-08-02 v1.1：修正保存截图后系统图库不显示的问题
+
+2016-07-31 v1.0：initial release
+
 ##### 开源代码
 https://github.com/smartjinyu/SaveNoTPic
 

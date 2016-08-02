@@ -16,6 +16,9 @@
     <string name="sumOff">关闭</string>
     <string name="sumOn">开启</string>
     <string name="version">版本</string>
+    <string name="deleteLater">分享后删除</string>
+    <string name="deleteLaterSum">分享后删除保存在本地的截图</string>
+    <string name="deleteSucceed">保存的截图已删除！</string>
 
 
 </resources>

@@ -18,19 +18,19 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
-
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-/**
- * Created by smart on 2016/7/31.
- */
 public class GetPicActivity extends Activity {
     final private int REQUEST_CODE_ASK_PERMISSIONS = 233;
-    final private String dirError="dir error";
+    final private int REQUEST_CODE_SHARE_IMAGE = 234;
+    final private String dirError = "dir error";
+  //  private Boolean deleteLater = false;
+    private String fileName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,10 +44,11 @@ public class GetPicActivity extends Activity {
 
     private void handlePic() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String defaultDir=getDefaultDir();
-        if(!dirError.equals(defaultDir)){
-            String saveDir=sharedPreferences.getString("pref_saveDir",getDefaultDir());
-            Boolean shareLater=sharedPreferences.getBoolean("pref_share",true);
+        String defaultDir = getDefaultDir();
+        if (!dirError.equals(defaultDir)) {
+            String saveDir = sharedPreferences.getString("pref_saveDir", getDefaultDir());
+            Boolean shareLater = sharedPreferences.getBoolean("pref_share", true);
+         //   deleteLater = sharedPreferences.getBoolean("pref_deleteLater", false);
             //read settings
             Intent intent = getIntent();
             String action = intent.getAction();
@@ -55,52 +56,62 @@ public class GetPicActivity extends Activity {
             //getIntent
             if (intent.ACTION_SEND.equals(action) && "image/png".equals(type)) {
                 Uri uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
-                if(uri != null ) {
-                    String realPath=getRealPathFromURI(this,uri);
-                    String picName= realPath.substring(realPath.lastIndexOf("/"),realPath.lastIndexOf("."));
-                        try{
-                            Bitmap bitmap=getBitmapFromUri(uri);
-                            File picFile = new File(saveDir+"/"+picName+".png");
-                            int i = 1;
-                            while(picFile.exists()){
-                                picFile=new File(saveDir+"/"+picName+"("+i+").png");
-                                i++;
-                            }
-                            //avoid conflicts
-                            try {
-                                FileOutputStream fileOutputStream = new FileOutputStream(picFile);
-                                bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
-                                fileOutputStream.flush();
-                                fileOutputStream.close();
-                                Toast.makeText(this,getString(R.string.shareSucceed),Toast.LENGTH_SHORT).show();
-                                if(shareLater){
-                                    Intent shareIntent = new Intent();
-                                    shareIntent.setAction(Intent.ACTION_SEND);
-                                    shareIntent.putExtra(Intent.EXTRA_STREAM, uri.fromFile(picFile));
-                                    shareIntent.setType("image/png");
-                                    startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.shareLater)));
-                                }
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                                Log.d("GetPic001",e.toString());
-                                Toast.makeText(this,getString(R.string.shareFail001),Toast.LENGTH_LONG).show();
-
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                Log.d("GetPic002",e.toString());
-                                Toast.makeText(this,getString(R.string.shareFail002),Toast.LENGTH_LONG).show();
-
-                            }
+                if (uri != null) {
+                    String realPath = getRealPathFromURI(this, uri);
+                    String picName = realPath.substring(realPath.lastIndexOf("/"), realPath.lastIndexOf("."));
+                    try {
+                        Bitmap bitmap = getBitmapFromUri(uri);
+                        fileName = saveDir + "/" + picName + ".png";
+                        File picFile = new File(fileName);
+                        int i = 1;
+                        while (picFile.exists()) {
+                            fileName = saveDir + "/" + picName + "(" + i + ").png";
+                            picFile = new File(fileName);
+                            i++;
                         }
-                        catch (IOException e){
-                            Log.d("GetPic003",e.toString());
-                            Toast.makeText(this,getString(R.string.shareFail003),Toast.LENGTH_LONG).show();
+                        //avoid conflicts
+                        try {
+                            FileOutputStream fileOutputStream = new FileOutputStream(picFile);
+                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
+                            fileOutputStream.flush();
+                            fileOutputStream.close();
+                            sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + fileName)));//refresh the gallery after saving
+                            Toast.makeText(this, getString(R.string.shareSucceed), Toast.LENGTH_SHORT).show();
+                            if (shareLater) {
+                                Intent shareIntent = new Intent();
+                                shareIntent.setAction(Intent.ACTION_SEND);
+                                shareIntent.putExtra(Intent.EXTRA_STREAM, uri.fromFile(picFile));
+                                shareIntent.setType("image/png");
+                                startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.shareLater)));
+                                /*deleteLater  have no opinion about how to get result after sharing complete
+                                if (false) {
+                                    File file = new File(fileName);
+                                    file.delete();
+                                    sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + fileName)));
+                                    Toast.makeText(this,getString(R.string.deleteSucceed),Toast.LENGTH_SHORT).show();
+                                }*/
+                            }
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                            Log.d("GetPic001", e.toString());
+                            Toast.makeText(this, getString(R.string.shareFail001), Toast.LENGTH_LONG).show();
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Log.d("GetPic002", e.toString());
+                            Toast.makeText(this, getString(R.string.shareFail002), Toast.LENGTH_LONG).show();
 
                         }
+                    } catch (IOException e) {
+                        Log.d("GetPic003", e.toString());
+                        Toast.makeText(this, getString(R.string.shareFail003), Toast.LENGTH_LONG).show();
+
+                    }
                 }
             }
-        }else{
-            Toast.makeText(this,getString(R.string.shareFail004),Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, getString(R.string.shareFail004), Toast.LENGTH_LONG).show();
+
         }
         finish();
     }
@@ -117,8 +128,8 @@ public class GetPicActivity extends Activity {
     private String getRealPathFromURI(Context context, Uri contentUri) {
         Cursor cursor = null;
         try {
-            String[] proj = { MediaStore.Images.Media.DATA };
-            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+            String[] proj = {MediaStore.Images.Media.DATA};
+            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
             int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             cursor.moveToFirst();
             return cursor.getString(column_index);
@@ -129,18 +140,20 @@ public class GetPicActivity extends Activity {
         }
     }
 
-    private String getDefaultDir(){
-        if(hasSDCardMounted()){
-            return Environment.getExternalStorageDirectory().getAbsolutePath()+"/Pictures/Screenshots";
-        }else{
+    private String getDefaultDir() {
+        if (hasSDCardMounted()) {
+            return Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/Screenshots";
+        } else {
             return dirError;
         }
     }
+
     private static boolean hasSDCardMounted() {
         String state = Environment.getExternalStorageState();
         return state != null && state.equals(Environment.MEDIA_MOUNTED);
 
     }
+
 
 
     @Override
