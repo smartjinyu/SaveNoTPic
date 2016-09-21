@@ -3,6 +3,7 @@ package com.smartjinyu.savenotpic;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -48,7 +49,6 @@ public class GetPicActivity extends Activity {
         if (!dirError.equals(defaultDir)) {
             String saveDir = sharedPreferences.getString("pref_saveDir", getDefaultDir());
             Boolean shareLater = sharedPreferences.getBoolean("pref_share", true);
-         //   deleteLater = sharedPreferences.getBoolean("pref_deleteLater", false);
             //read settings
             Intent intent = getIntent();
             String action = intent.getAction();
@@ -57,7 +57,13 @@ public class GetPicActivity extends Activity {
             if (intent.ACTION_SEND.equals(action) && "image/png".equals(type)) {
                 Uri uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
                 if (uri != null) {
-                    String realPath = getRealPathFromURI(this, uri);
+                    String sUri= uri.toString();
+                    String realPath= sUri;
+                    Log.d("gggggggg",sUri.substring(sUri.lastIndexOf(".")));
+                    if(!sUri.substring(sUri.lastIndexOf(".")).equals(".png") && !sUri.substring(sUri.lastIndexOf(".")).equals(".PNG")){
+                        realPath = getRealPathFromURI(this, uri);
+                    }
+                    Log.d("Geppppppp",realPath);
                     String picName = realPath.substring(realPath.lastIndexOf("/"), realPath.lastIndexOf("."));
                     try {
                         Bitmap bitmap = getBitmapFromUri(uri);
@@ -82,14 +88,6 @@ public class GetPicActivity extends Activity {
                                 shareIntent.setAction(Intent.ACTION_SEND);
                                 shareIntent.putExtra(Intent.EXTRA_STREAM, uri.fromFile(picFile));
                                 shareIntent.setType("image/png");
-                                startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.shareLater)));
-                                /*deleteLater  have no opinion about how to get result after sharing complete
-                                if (false) {
-                                    File file = new File(fileName);
-                                    file.delete();
-                                    sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + fileName)));
-                                    Toast.makeText(this,getString(R.string.deleteSucceed),Toast.LENGTH_SHORT).show();
-                                }*/
                             }
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
@@ -124,7 +122,7 @@ public class GetPicActivity extends Activity {
         parcelFileDescriptor.close();
         return image;
     }
-
+/*
     private String getRealPathFromURI(Context context, Uri contentUri) {
         Cursor cursor = null;
         try {
@@ -139,6 +137,17 @@ public class GetPicActivity extends Activity {
             }
         }
     }
+*/
+private String getRealPathFromURI(Context mContext,Uri contentUri) {
+    String[] proj = { MediaStore.Images.Media.DATA };
+    CursorLoader loader = new CursorLoader(mContext, contentUri, proj, null, null, null);
+    Cursor cursor = loader.loadInBackground();
+    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+    cursor.moveToFirst();
+    String result = cursor.getString(column_index);
+    cursor.close();
+    return result;
+}
 
     private String getDefaultDir() {
         if (hasSDCardMounted()) {
