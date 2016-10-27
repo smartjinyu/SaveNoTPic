@@ -11,10 +11,15 @@ Android 6.0+（也就Now on Tap有这种需求吧）
 
 ##### 应用截图
 
-![Screenshot](http://smartjinyu.com/img/2016-07-31/SaveNoTPic.png)
+![Screenshot](https://smartjinyu.com/img/2016-07-31/SaveNoTPic.png)
 
 
 ##### 更新日志
+
+###### 2016-10-27 v1.3：
+1. 修正自定义保存目录不生效的问题
+2. 修正目录不存在时保存失败的问题(thanks to @EMK2000)
+3. 修正帮助链接失效的问题
 
 ###### 2016-09-21 v1.2：
 1. 修正在新版Google App下FC的问题
