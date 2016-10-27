@@ -2,12 +2,14 @@ package com.smartjinyu.savenotpic;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.nononsenseapps.filepicker.FilePickerActivity;
@@ -23,6 +25,7 @@ public class SettingsFragment extends PreferenceFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //getPreferenceManager().setSharedPreferencesName("test");
         addPreferencesFromResource(R.xml.settings);
         //pref_saveDir
         MainActivity activity=(MainActivity) getActivity();
@@ -61,8 +64,12 @@ public class SettingsFragment extends PreferenceFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == FILE_CODE && resultCode == Activity.RESULT_OK) {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+            SharedPreferences.Editor editor = sharedPreferences.edit();
             Uri uri = data.getData();
             pref_saveDir.setSummary(uri.toString().substring(7));//remove file://
+            editor.putString("saveDir",uri.toString().substring(7));
+            editor.commit();
         }
     }
 

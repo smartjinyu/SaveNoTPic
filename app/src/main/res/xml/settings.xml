@@ -24,7 +24,7 @@
         <Preference
             android:title="@string/help">
             <intent android:action="android.intent.action.VIEW"
-            android:data="http://smartjinyu.com/savenotpic/2016/07/30/SaveNoTPic.html" />
+            android:data="https://smartjinyu.com/savenotpic/2016/08/02/SaveNoTPic.html" />
         </Preference>
         <Preference
             android:title="@string/version"

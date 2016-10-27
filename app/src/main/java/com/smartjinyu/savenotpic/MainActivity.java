@@ -25,8 +25,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public String getDir(){
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        return sharedPref.getString("pref_saveDir",getSDcardScreenshotDir());
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        //SharedPreferences sharedPref = getSharedPreferences("test",0);
+        return sharedPref.getString("saveDir",getSDcardScreenshotDir());
     }
 
     private String getSDcardScreenshotDir(){

@@ -44,10 +44,10 @@ public class GetPicActivity extends Activity {
     }
 
     private void handlePic() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         String defaultDir = getDefaultDir();
         if (!dirError.equals(defaultDir)) {
-            String saveDir = sharedPreferences.getString("pref_saveDir", getDefaultDir());
+            String saveDir = sharedPreferences.getString("saveDir", getDefaultDir());
             Boolean shareLater = sharedPreferences.getBoolean("pref_share", true);
             //read settings
             Intent intent = getIntent();
@@ -76,6 +76,10 @@ public class GetPicActivity extends Activity {
                             i++;
                         }
                         //avoid conflicts
+                        if(!picFile.getParentFile().exists()){
+                            picFile.getParentFile().mkdirs();
+                        }
+                        //avoid directory not exists, which will cause FileOutPutStream throw an exception
                         try {
                             FileOutputStream fileOutputStream = new FileOutputStream(picFile);
                             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
@@ -122,22 +126,7 @@ public class GetPicActivity extends Activity {
         parcelFileDescriptor.close();
         return image;
     }
-/*
-    private String getRealPathFromURI(Context context, Uri contentUri) {
-        Cursor cursor = null;
-        try {
-            String[] proj = {MediaStore.Images.Media.DATA};
-            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            return cursor.getString(column_index);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-    }
-*/
+
 private String getRealPathFromURI(Context mContext,Uri contentUri) {
     String[] proj = { MediaStore.Images.Media.DATA };
     CursorLoader loader = new CursorLoader(mContext, contentUri, proj, null, null, null);
