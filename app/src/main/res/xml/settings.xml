@@ -8,17 +8,15 @@
         <SwitchPreference
             android:title="@string/share"
             android:key="pref_share"
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:summaryOn="@string/sumOn"
             android:summaryOff="@string/sumOff"/>
-      <!--  <SwitchPreference
-            android:title="@string/deleteLater"
-            android:summary="@string/deleteLaterSum"
-            android:key="pref_deleteLater"
+        <SwitchPreference
+            android:title="@string/hideicon"
+            android:key="pref_hide"
             android:defaultValue="false"
-            android:dependency="pref_share"
             android:summaryOn="@string/sumOn"
-            android:summaryOff="@string/sumOff"/>-->
+            android:summaryOff="@string/sumOff"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/class2">
         <Preference

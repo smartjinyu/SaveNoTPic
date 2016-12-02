@@ -6,9 +6,8 @@ import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,16 +16,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(R.string.app_name);
         getStoragePerm();
         if(savedInstanceState==null){
             SettingsFragment settingsFragment=new SettingsFragment();
             getFragmentManager().beginTransaction().add(android.R.id.content,settingsFragment).commit();
-
         }
     }
     public String getDir(){
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        //SharedPreferences sharedPref = getSharedPreferences("test",0);
         return sharedPref.getString("saveDir",getSDcardScreenshotDir());
     }
 

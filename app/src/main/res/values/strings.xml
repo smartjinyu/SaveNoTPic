@@ -6,8 +6,9 @@
     <string name="share">Share Screenshot After Saving</string>
     <string name="sumOn">On</string>
     <string name="sumOff">Off</string>
-    <string name="deleteLater">Delete after sharing</string>
-    <string name="deleteLaterSum">Delete the saved screenshot after sharing</string>
+    <string name="hideicon">Hide Icon From Launcher</string>
+    <string name="hided">Hide icon from launcher successfully!</string>
+    <string name="display">Bring back icon to launcher successfully!</string>
     <string name="class2">About</string>
     <string name="help">Help</string>
     <string name="version">Version</string>
@@ -16,8 +17,13 @@
     <string name="feedback">Feedback</string>
     <string name="feedbackSum">Contact me if any suggestions or complaints</string>
     <string name="sdcardFail">Error. Please specify it manually.</string>
+    <string name="hide_title">Warning</string>
+    <string name="hide_warnings">If you choose to hide the icon from the launcher, you may not be able to access to this Settings page anymore.
+     You may have to clear app data and re-install SaveNoTPic to recover.\n Are you sure to hide the icon?</string>
+    <string name="goon">Go on</string>
+    <string name="back">Give up</string>
     <!--settings.xml-->
-    <string name="needPer">We need storage permission to save screenshot to your sdcard.</string>
+    <string name="needPer">We need Storage Permission to save screenshot to your sdcard.</string>
     <string name="shareTitle">SaveNoTPic</string>
     <string name="shareSucceed">Screenshot saved Successfully!</string>
     <string name="deleteSucceed">The Screenshot saved has deleted!</string>

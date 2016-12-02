@@ -17,6 +17,7 @@ import android.os.ParcelFileDescriptor;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.widget.Toast;
 import java.io.File;
@@ -27,9 +28,7 @@ import java.io.IOException;
 
 public class GetPicActivity extends Activity {
     final private int REQUEST_CODE_ASK_PERMISSIONS = 233;
-    final private int REQUEST_CODE_SHARE_IMAGE = 234;
     final private String dirError = "dir error";
-  //  private Boolean deleteLater = false;
     private String fileName;
 
     @Override
@@ -44,7 +43,7 @@ public class GetPicActivity extends Activity {
     }
 
     private void handlePic() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String defaultDir = getDefaultDir();
         if (!dirError.equals(defaultDir)) {
             String saveDir = sharedPreferences.getString("saveDir", getDefaultDir());
@@ -54,7 +53,7 @@ public class GetPicActivity extends Activity {
             String action = intent.getAction();
             String type = intent.getType();
             //getIntent
-            if (intent.ACTION_SEND.equals(action) && "image/png".equals(type)) {
+            if (Intent.ACTION_SEND.equals(action) && "image/png".equals(type)) {
                 Uri uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
                 if (uri != null) {
                     String sUri= uri.toString();
@@ -89,9 +88,11 @@ public class GetPicActivity extends Activity {
                             Toast.makeText(this, getString(R.string.shareSucceed), Toast.LENGTH_SHORT).show();
                             if (shareLater) {
                                 Intent shareIntent = new Intent();
+                                Uri shareuri = FileProvider.getUriForFile(getApplicationContext(),"com.smartjinyu.savenotpic.imageProvider",picFile);
                                 shareIntent.setAction(Intent.ACTION_SEND);
-                                shareIntent.putExtra(Intent.EXTRA_STREAM, uri.fromFile(picFile));
+                                shareIntent.putExtra(Intent.EXTRA_STREAM,shareuri);
                                 shareIntent.setType("image/png");
+                                startActivity(shareIntent);
                             }
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();

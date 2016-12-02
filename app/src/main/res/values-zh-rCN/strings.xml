@@ -16,9 +16,14 @@
     <string name="sumOff">关闭</string>
     <string name="sumOn">开启</string>
     <string name="version">版本</string>
-    <string name="deleteLater">分享后删除</string>
-    <string name="deleteLaterSum">分享后删除保存在本地的截图</string>
     <string name="deleteSucceed">保存的截图已删除！</string>
+    <string name="display">成功在启动器中恢复显示图标！</string>
+    <string name="hided">成功从启动器中隐藏图标！</string>
+    <string name="hideicon">从启动器中隐藏图标</string>
+    <string name="hide_title">警告</string>
+    <string name="hide_warnings">如果你选择了从启动器中隐藏图标，关闭程序后你可能无法再调整设置，可能需要清除应用数据并重新安装本应用以恢复显示。你确定要隐藏图标吗？</string>
+    <string name="back">返回</string>
+    <string name="goon">确认</string>
 
 
 </resources>
