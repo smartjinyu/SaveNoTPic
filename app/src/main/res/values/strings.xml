@@ -19,7 +19,7 @@
     <string name="sdcardFail">Error. Please specify it manually.</string>
     <string name="hide_title">Warning</string>
     <string name="hide_warnings">If you choose to hide the icon from the launcher, you may not be able to go back to this Settings page again.
-     You may have to clear app data and re-install SaveNoTPic to recover.\n Are you sure to hide the icon?</string>
+     You may have to uninstall and re-install SaveNoTPic to recover.\n Are you sure to hide the icon?</string>
     <string name="goon">Go on</string>
     <string name="back">Give up</string>
     <!--settings.xml-->
