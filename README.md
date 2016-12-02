@@ -49,4 +49,4 @@ Google material-design-icons、NoNonsense-FilePicker
 ### Others
 You can go to [My Blog] for Chinese edition help or get the latest version.
 
-[My Balog]:https://smartjinyu.com/savenotpic/2016/08/02/SaveNoTPic.html
+[My Blog]:https://smartjinyu.com/savenotpic/2016/08/02/SaveNoTPic.html
